@@ -27,6 +27,52 @@
             background-color: var(--dark);
             color: var(--light);
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
         }
 
         /* Navigation */
@@ -90,26 +136,109 @@
             box-shadow: 0 10px 30px rgba(255, 77, 0, 0.3);
         }
 
+        /* Promo Banner with Timer */
+        .promo-banner {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), #FF7A00);
+            padding: 12px 30px;
+            border-radius: 50px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 40px rgba(255, 77, 0, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 10px 40px rgba(255, 77, 0, 0.4); }
+            50% { box-shadow: 0 10px 60px rgba(255, 77, 0, 0.6); }
+        }
+
+        .promo-text {
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer {
+            display: flex;
+            gap: 10px;
+        }
+
+        .timer-block {
+            background: rgba(0,0,0,0.3);
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 50px;
+        }
+
+        .timer-block span {
+            display: block;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .timer-block small {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        .promo-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .promo-close:hover {
+            opacity: 1;
+        }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             padding: 120px 5% 80px;
-            background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
             position: relative;
             overflow: hidden;
         }
 
-        .hero::before {
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+
+        .hero-bg::after {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(255, 77, 0, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(13,13,13,0.95) 0%, rgba(13,13,13,0.7) 50%, rgba(13,13,13,0.9) 100%);
         }
 
         .hero-content {
@@ -210,6 +339,146 @@
             letter-spacing: 1px;
         }
 
+        /* Quiz Section */
+        .quiz-section {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, #1a1a2e 0%, var(--dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 77, 0, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quiz-container h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .quiz-container > p {
+            color: var(--text-gray);
+            margin-bottom: 40px;
+        }
+
+        .quiz-progress {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .quiz-progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gray);
+            transition: all 0.3s;
+        }
+
+        .quiz-progress-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .quiz-progress-dot.completed {
+            background: var(--primary);
+        }
+
+        .quiz-card {
+            background: var(--gray);
+            padding: 50px 40px;
+            border-radius: 25px;
+            display: none;
+        }
+
+        .quiz-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-card h3 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .quiz-option {
+            background: var(--dark);
+            border: 2px solid transparent;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            font-size: 16px;
+            color: var(--light);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            transform: translateX(10px);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: rgba(255, 77, 0, 0.1);
+        }
+
+        .quiz-result {
+            display: none;
+            text-align: center;
+        }
+
+        .quiz-result.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .quiz-result-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-result h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .quiz-result p {
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
         /* Services Section */
         .services {
             padding: 100px 5%;
@@ -279,10 +548,81 @@
             font-size: 15px;
         }
 
+        /* Gallery Section */
+        .gallery {
+            padding: 100px 5%;
+            background: var(--dark);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 250px);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
         /* Pricing Section */
         .pricing {
             padding: 100px 5%;
-            background: var(--dark);
+            background: var(--gray);
+            position: relative;
+        }
+
+        .pricing-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .pricing-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .pricing-grid {
@@ -291,10 +631,12 @@
             gap: 30px;
             max-width: 1000px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .pricing-card {
-            background: var(--gray);
+            background: var(--dark);
             padding: 50px 40px;
             border-radius: 25px;
             text-align: center;
@@ -403,7 +745,7 @@
         /* Contact Section */
         .contact {
             padding: 100px 5%;
-            background: var(--gray);
+            background: var(--dark);
         }
 
         .contact-wrapper {
@@ -442,7 +784,7 @@
         .contact-item-icon {
             width: 50px;
             height: 50px;
-            background: var(--dark);
+            background: var(--gray);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -462,7 +804,7 @@
         }
 
         .contact-form {
-            background: var(--dark);
+            background: var(--gray);
             padding: 40px;
             border-radius: 25px;
         }
@@ -475,7 +817,7 @@
         .form-group textarea {
             width: 100%;
             padding: 16px 20px;
-            background: var(--gray);
+            background: var(--dark);
             border: none;
             border-radius: 12px;
             color: var(--light);
@@ -514,10 +856,132 @@
             box-shadow: 0 10px 30px rgba(255, 77, 0, 0.4);
         }
 
+        /* Popup Modal */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup {
+            background: var(--gray);
+            padding: 50px;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s;
+        }
+
+        .popup-overlay.active .popup {
+            transform: scale(1);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .popup-close:hover {
+            color: var(--primary);
+        }
+
+        .popup h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .popup > p {
+            color: var(--text-gray);
+            margin-bottom: 30px;
+        }
+
+        .popup .form-group input {
+            background: var(--dark);
+        }
+
+        .popup-bonus {
+            background: rgba(255, 77, 0, 0.1);
+            border: 1px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .popup-bonus-icon {
+            font-size: 30px;
+        }
+
+        .popup-bonus-text {
+            font-size: 14px;
+        }
+
+        .popup-bonus-text strong {
+            color: var(--primary);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 30px rgba(255, 77, 0, 0.5);
+            z-index: 1500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fabPulse 2s infinite;
+        }
+
+        @keyframes fabPulse {
+            0%, 100% { box-shadow: 0 5px 30px rgba(255, 77, 0, 0.5); }
+            50% { box-shadow: 0 5px 50px rgba(255, 77, 0, 0.8); }
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+        }
+
         /* Footer */
         footer {
             padding: 40px 5%;
-            background: var(--dark);
+            background: var(--gray);
             border-top: 1px solid rgba(255,255,255,0.1);
             text-align: center;
         }
@@ -537,6 +1001,14 @@
                 display: none;
             }
 
+            .promo-banner {
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+                padding: 15px 20px;
+                width: 90%;
+            }
+
             .hero h1 {
                 font-size: 50px;
             }
@@ -550,6 +1022,16 @@
                 gap: 30px;
             }
 
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+
             .contact-wrapper {
                 grid-template-columns: 1fr;
             }
@@ -557,10 +1039,38 @@
             .pricing-card.featured {
                 transform: scale(1);
             }
+
+            .popup {
+                padding: 30px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Promo Banner with Countdown -->
+    <div class="promo-banner" id="promoBanner">
+        <span class="promo-text">🔥 50% OFF — New Year Sale!</span>
+        <div class="timer">
+            <div class="timer-block">
+                <span id="days">00</span>
+                <small>Days</small>
+            </div>
+            <div class="timer-block">
+                <span id="hours">00</span>
+                <small>Hours</small>
+            </div>
+            <div class="timer-block">
+                <span id="minutes">00</span>
+                <small>Min</small>
+            </div>
+            <div class="timer-block">
+                <span id="seconds">00</span>
+                <small>Sec</small>
+            </div>
+        </div>
+        <button class="promo-close" onclick="closePromo()">✕</button>
+    </div>
+
     <!-- Navigation -->
     <nav>
         <a href="#" class="logo">IRONFIT</a>
@@ -569,18 +1079,21 @@
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <button class="nav-btn">Join Now</button>
+        <button class="nav-btn" onclick="openPopup()">Join Now</button>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Background Image -->
     <section class="hero">
-        <div class="hero-content">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80" alt="Gym Background">
+        </div>
+        <div class="hero-content fade-in-left">
             <p class="hero-tag">Welcome to IRONFIT</p>
             <h1>BUILD YOUR <span>PERFECT</span> BODY</h1>
             <p>Transform your life with our professional trainers, modern equipment, and proven workout programs. Start your journey today.</p>
             <div class="hero-buttons">
-                <button class="btn-primary">Start Free Trial</button>
-                <button class="btn-secondary">View Programs</button>
+                <button class="btn-primary" onclick="openPopup()">Start Free Trial</button>
+                <button class="btn-secondary" onclick="scrollToQuiz()">Find Your Program</button>
             </div>
             <div class="stats">
                 <div class="stat">
@@ -599,39 +1112,92 @@
         </div>
     </section>
 
+    <!-- Quiz Section -->
+    <section class="quiz-section" id="quiz">
+        <div class="quiz-container fade-in">
+            <h2>FIND YOUR PERFECT PROGRAM</h2>
+            <p>Answer 3 quick questions and we'll recommend the best training program for you</p>
+            
+            <div class="quiz-progress">
+                <div class="quiz-progress-dot active" id="dot1"></div>
+                <div class="quiz-progress-dot" id="dot2"></div>
+                <div class="quiz-progress-dot" id="dot3"></div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="quiz-card active" id="q1">
+                <h3>What's your main fitness goal?</h3>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="selectOption(1, 'strength')">💪 Build muscle & strength</button>
+                    <button class="quiz-option" onclick="selectOption(1, 'weight')">🔥 Lose weight & burn fat</button>
+                    <button class="quiz-option" onclick="selectOption(1, 'endurance')">🏃 Improve endurance & stamina</button>
+                    <button class="quiz-option" onclick="selectOption(1, 'flexibility')">🧘 Increase flexibility & mobility</button>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-card" id="q2">
+                <h3>How often can you train per week?</h3>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="selectOption(2, 'beginner')">1-2 times — I'm just starting</button>
+                    <button class="quiz-option" onclick="selectOption(2, 'moderate')">3-4 times — Ready to commit</button>
+                    <button class="quiz-option" onclick="selectOption(2, 'advanced')">5+ times — I'm all in!</button>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-card" id="q3">
+                <h3>Do you prefer training alone or in groups?</h3>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="selectOption(3, 'solo')">🎧 Solo — I like my own pace</button>
+                    <button class="quiz-option" onclick="selectOption(3, 'group')">👥 Group — I love the energy</button>
+                    <button class="quiz-option" onclick="selectOption(3, 'personal')">🏆 Personal trainer — I want guidance</button>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div class="quiz-result" id="quizResult">
+                <div class="quiz-result-icon">🎯</div>
+                <h3 id="resultTitle">Power Building Program</h3>
+                <p id="resultText">Based on your answers, we recommend our intensive strength training program with personal coaching.</p>
+                <button class="btn-primary" onclick="openPopup()">Claim Your Free Trial</button>
+            </div>
+        </div>
+    </section>
+
     <!-- Services Section -->
     <section class="services" id="services">
-        <div class="section-header">
+        <div class="section-header fade-in">
             <p class="section-tag">What We Offer</p>
             <h2>OUR SERVICES</h2>
         </div>
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card scale-in">
                 <div class="service-icon">🏋️</div>
                 <h3>Weight Training</h3>
                 <p>Build strength and muscle with our state-of-the-art equipment and personalized programs.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card scale-in">
                 <div class="service-icon">🧘</div>
                 <h3>Yoga & Flexibility</h3>
                 <p>Improve your flexibility, balance, and mental clarity with our yoga sessions.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card scale-in">
                 <div class="service-icon">🥊</div>
                 <h3>Boxing & MMA</h3>
                 <p>Learn self-defense and get an intense cardio workout with our combat classes.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card scale-in">
                 <div class="service-icon">🏃</div>
                 <h3>Cardio Zone</h3>
                 <p>Burn calories and improve endurance with our modern cardio equipment.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card scale-in">
                 <div class="service-icon">🥗</div>
                 <h3>Nutrition Plans</h3>
                 <p>Get personalized meal plans designed to support your fitness goals.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card scale-in">
                 <div class="service-icon">👤</div>
                 <h3>Personal Training</h3>
                 <p>One-on-one sessions with certified trainers for maximum results.</p>
@@ -639,14 +1205,39 @@
         </div>
     </section>
 
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="section-header fade-in">
+            <p class="section-tag">Our Space</p>
+            <h2>GALLERY</h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&q=80" alt="Gym Floor">
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" alt="Weight Area">
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80" alt="Cardio Zone">
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&q=80" alt="Boxing">
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&q=80" alt="Yoga">
+            </div>
+        </div>
+    </section>
+
     <!-- Pricing Section -->
     <section class="pricing" id="pricing">
-        <div class="section-header">
+        <div class="section-header fade-in">
             <p class="section-tag">Membership Plans</p>
             <h2>CHOOSE YOUR PLAN</h2>
         </div>
         <div class="pricing-grid">
-            <div class="pricing-card">
+            <div class="pricing-card fade-in-left">
                 <h3>Basic</h3>
                 <div class="price"><span>$</span>29</div>
                 <p class="price-period">per month</p>
@@ -656,9 +1247,9 @@
                     <li>Locker room access</li>
                     <li>Free parking</li>
                 </ul>
-                <button class="pricing-btn">Get Started</button>
+                <button class="pricing-btn" onclick="openPopup()">Get Started</button>
             </div>
-            <div class="pricing-card featured">
+            <div class="pricing-card featured scale-in">
                 <span class="pricing-tag">Most Popular</span>
                 <h3>Premium</h3>
                 <div class="price"><span>$</span>59</div>
@@ -670,9 +1261,9 @@
                     <li>Nutrition consultation</li>
                     <li>Sauna & spa access</li>
                 </ul>
-                <button class="pricing-btn">Get Started</button>
+                <button class="pricing-btn" onclick="openPopup()">Get Started</button>
             </div>
-            <div class="pricing-card">
+            <div class="pricing-card fade-in-right">
                 <h3>Elite</h3>
                 <div class="price"><span>$</span>99</div>
                 <p class="price-period">per month</p>
@@ -683,7 +1274,7 @@
                     <li>Priority booking</li>
                     <li>Guest passes (2/month)</li>
                 </ul>
-                <button class="pricing-btn">Get Started</button>
+                <button class="pricing-btn" onclick="openPopup()">Get Started</button>
             </div>
         </div>
     </section>
@@ -691,7 +1282,7 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="contact-wrapper">
-            <div class="contact-info">
+            <div class="contact-info fade-in-left">
                 <h2>GET IN TOUCH</h2>
                 <p>Ready to start your fitness journey? Contact us today for a free consultation and gym tour.</p>
                 <div class="contact-details">
@@ -718,7 +1309,7 @@
                     </div>
                 </div>
             </div>
-            <div class="contact-form">
+            <div class="contact-form fade-in-right">
                 <form>
                     <div class="form-group">
                         <input type="text" placeholder="Your Name" required>
@@ -742,5 +1333,148 @@
     <footer>
         <p>&copy; 2025 <span>IRONFIT</span>. All rights reserved.</p>
     </footer>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="openPopup()">💬</button>
+
+    <!-- Popup Modal -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <button class="popup-close" onclick="closePopup()">✕</button>
+            <h3>START YOUR JOURNEY</h3>
+            <p>Get your free 7-day trial pass today!</p>
+            
+            <div class="popup-bonus">
+                <span class="popup-bonus-icon">🎁</span>
+                <div class="popup-bonus-text">
+                    Sign up now and get <strong>FREE personal training session</strong> + nutrition guide!
+                </div>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Your Phone" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <button type="submit" class="form-btn">Get Free Trial</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Author: YohanDev
+
+        // Countdown Timer
+        function updateTimer() {
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 7);
+            
+            const now = new Date();
+            const diff = endDate - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Close promo banner
+        function closePromo() {
+            document.getElementById('promoBanner').style.display = 'none';
+        }
+
+        // Popup functions
+        function openPopup() {
+            document.getElementById('popupOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('popupOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closePopup();
+        });
+
+        // Quiz functionality
+        let currentQuestion = 1;
+        let answers = {};
+
+        function selectOption(question, answer) {
+            answers[question] = answer;
+            
+            document.querySelectorAll(`#q${question} .quiz-option`).forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+
+            setTimeout(() => {
+                if (question < 3) {
+                    document.getElementById(`q${question}`).classList.remove('active');
+                    document.getElementById(`q${question + 1}`).classList.add('active');
+                    document.getElementById(`dot${question}`).classList.remove('active');
+                    document.getElementById(`dot${question}`).classList.add('completed');
+                    document.getElementById(`dot${question + 1}`).classList.add('active');
+                    currentQuestion++;
+                } else {
+                    showResult();
+                }
+            }, 300);
+        }
+
+        function showResult() {
+            document.getElementById('q3').classList.remove('active');
+            document.getElementById('dot3').classList.remove('active');
+            document.getElementById('dot3').classList.add('completed');
+            
+            const results = {
+                strength: { title: 'Power Building Program', text: 'Intensive strength training with compound movements, progressive overload, and muscle-building nutrition plan.' },
+                weight: { title: 'Fat Burn Accelerator', text: 'High-intensity interval training combined with strength work and a calorie-deficit meal plan.' },
+                endurance: { title: 'Cardio Champion', text: 'Endurance-focused program mixing running, cycling, and swimming with stamina-building workouts.' },
+                flexibility: { title: 'Mind & Body Balance', text: 'Yoga, stretching, and mobility work to improve flexibility and reduce stress.' }
+            };
+
+            const result = results[answers[1]] || results.strength;
+            document.getElementById('resultTitle').textContent = result.title;
+            document.getElementById('resultText').textContent = result.text;
+            document.getElementById('quizResult').classList.add('active');
+        }
+
+        function scrollToQuiz() {
+            document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Scroll animations
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in');
+            
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                if (rect.top < windowHeight * 0.85) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScrollAnimation);
+        window.addEventListener('load', handleScrollAnimation);
+    </script>
 </body>
 </html>
